@@ -36,3 +36,61 @@ describe("First Test", () => {
 - To run ALL the test under examples directory, `npx cypress run` in the terminal. Running `npx cypress run --headed` will run in the browser
 - To run a SINGLE test, `npx cypress run  -spec "cypress/integration/examples/test_file.js"`
 - To switch to Chrome from terminal, run the command, `npx cypress run --browser chrome`
+
+# Folder Structure
+- `Fixtures`, use to maintain the test data. Test cases, by default, will refer to this location for the test data.
+- `Integration`, inside we have the `examples` directory which hold the test cases.
+- `Plugins` contains the events listeners. Logs the events.
+- `Screenshot` failure screenshots are stored
+- `Support` contains reusable scripts
+- `Videos` 
+- `node_modules` dependencies installed 
+- `cypress.json` Cypress configurations. Overide default values
+
+# Locating Elements
+- Look for elements inside cypress
+- `get()` get one or more DOM elements by selector
+```js
+    // get the element
+    cy.get(selector) // locate the element
+```
+- CSS selector `.class`, `#id`, `[attribute=value]`, `.class[attribute=value]`
+
+# Locating Elements - Demo
+1. Launch browser and Open URL `https://demo.nopcommerce.com/`
+2. Enter Text in Search box "Apple Macbook Pro 13-inch"
+3. Click on `Search` Button
+4. Click on `Add to cart`
+5. Provide Quantity 2
+6. Click on `Add to cart`
+7. Click on `Shopping Cart` Link at the top of the page
+8. Verify the total amount
+
+```js
+// <reference types="cypress"/> // get auto solutions/methods from cypress
+
+describe('Locating Element', () => {
+    it('Verify types of locators', () => {
+        cy.visit("https://demo.nopcommerce.com/")
+        // get search bar. and type the search term
+        cy.get("#small-searchterms").type("Apple MacBook Pro 13-inch")
+        // grab the submit search button
+        cy.get("[type='submit']").click() // click on the search button
+        // add to cart
+        cy.get(".product-box-add-to-cart-button[value='Add to cart']").click()
+
+        // clear the preb value and type in a new one
+        cy.get("#product_enteredQuantity_4").clear().type('2') //quantity
+
+        cy.get("#add-to-cart-button-4").click()// add to cart after setting quantity
+
+        cy.wait(5000)
+        // go to shopping cart
+        cy.get("#topcartlink > a > span.cart-label").click()
+        cy.wait(3000)
+
+        // directed to shopping total. Grab the total price
+        cy.get(".product-unit-price").contains('$1,800.00') //validating point
+    })
+})
+```
