@@ -130,3 +130,6 @@ describe('UI Elements', () => {
     })
 })
 ```
+
+- UI Elements: `check boxes`, `drop downs`
+- Commands: `check`, `uncheck`. `type`
