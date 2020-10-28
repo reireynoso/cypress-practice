@@ -209,3 +209,80 @@ describe('Alert test', () => {
 })
 
 ```
+
+# Handling Web Table
+- Check value presence anywhere in the table
+- check value presence in specific row and column
+- check value presence based on condition by iterating rows
+```js
+describe('Table test', () => {
+    it('Table Test', () => {
+
+        cy.visit(`http://testautomationpractice.blogspot.com/`)
+        // Check value presence anywhere in the table. There's multiple elements with TD. In contains, specify which tag
+        cy.get('table[name=BookTable]').contains('td', 'Learn Selenium').should('be.visible')
+
+        // check value presence in specific row and column
+        cy.get('table[name=BookTable] > tbody > tr:nth-child(2) > td:nth-child(3)').contains('Selenium').should('be.visible')
+
+        // check value presence based on condition by iterating rows, look for author, then find t's book title
+        // find all tds. use .each to iterate over each one $ variables
+        cy.get('table[name=BookTable] > tbody > tr td:nth-child(2)').each(($e,index, $list) => {
+            const text = $e.text()
+            if(text.includes('Amod')){
+                // get first column but point to the same index it is found in row
+                cy.get('table[name=BookTable] > tbody > tr td:nth-child(1)').eq(index).then((bookname) => {
+                    // bookname is the argument from the element found. We call .text() to pull out the information inside the element
+                    const book = bookname.text()
+                    expect(book).to.equal("Master In Java")
+                })
+            }
+        }) 
+
+    })
+})
+```
+
+# Cypress Hooks
+- Cypress hooks borrowed from Mocha used to organize tests
+- Commands: `beforeEach`, `afterEach`, `before`, `after`
+- `beforeEach` that particular block will execute before each test starts
+- `afterEach` will execute after each test completes
+- `before` Before doing all tests, can specifiy in a block which will execute once before.
+- `after` After doing all test, can specificy in a block which will execute once after
+```js
+describe('Hooks', () => {
+    // before executing all three tests, execute method login, multiple times before each it block
+    before(() => {
+        //runs once before all tests in the block
+        cy.log('*************** This is a SETUP block ********************')
+    })
+
+    after(() => {
+        //run once after all tests in the block
+        cy.log('*************** This is a TEAR DOWN block ********************')
+    })
+
+    beforeEach(() => { 
+        //runs before each test in the block
+        cy.log('*************** This is a LOGIN block ********************')
+    })
+
+    afterEach(() => {
+        //runs after each test in the block
+        cy.log('*************** This is a LOGOUT block ********************')
+    })
+
+    it('Searching', () => {
+        cy.log('************ This is Searching Test')
+    })
+
+    it('Advanced Searching', () => {
+        cy.log('************ This is Advanced Searching Test')
+    })
+
+    it('Listing Products', () => {
+        cy.log('************ This is Listing Products Test')
+    })
+})
+```
