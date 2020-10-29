@@ -293,3 +293,4 @@ describe('Hooks', () => {
 
 # Cypress Fixture
 - Load a fixed set of data in a file
+- Inside the directory, `fixtures` provided by cypress, we can create and provide multiple files
