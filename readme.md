@@ -210,6 +210,10 @@ describe('Alert test', () => {
 
 ```
 
+# Navigating Pages
+- Navigate back or forward to the previous or next URL in the browser's history
+- Commands: `go()`
+
 # Handling Web Table
 - Check value presence anywhere in the table
 - check value presence in specific row and column
@@ -286,3 +290,6 @@ describe('Hooks', () => {
     })
 })
 ```
+
+# Cypress Fixture
+- Load a fixed set of data in a file
