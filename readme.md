@@ -382,3 +382,50 @@ describe('Custom Suite', () => {
 # Page Object Model Pattern
 - Page Object Moel is a design pattern where page objets are separated from Automatino test scripts.
 - Advantage: reusability and maintainability
+- In `integration`, create a new directory, `PageObjects` with a new class file.
+```js
+class LoginPage {
+
+    
+    visit(){
+        cy.visit('https://admin-demo.nopcommerce.com/login')
+
+    }
+
+    fillEmail(value){
+        const field = cy.get('[id=Email]')
+        field.clear();
+        field.type(value);
+        return this
+    }
+
+    fillPassword(value){
+        const field = cy.get('[id=Password]')
+        field.clear();
+        field.type(value);
+        return this
+    }
+
+    submit(){
+        const button = cy.get('[type=submit]');
+        button.click()
+    }
+}
+
+export default LoginPage
+```
+- Create the tests
+```js
+import LoginPage from '../PageObjects/LoginPage'
+
+describe('Page Object Suite', () => {
+    it('Valid Login Test', () => {
+        const login = new LoginPage();
+        login.visit();
+        login.fillEmail('admin@yourstore.com')
+        login.fillPassword('admin')
+        login.submit()
+        cy.title().should('be.equal', 'Dashboard / nopCommerce administration')
+    })
+})
+```
