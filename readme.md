@@ -213,6 +213,32 @@ describe('Alert test', () => {
 # Navigating Pages
 - Navigate back or forward to the previous or next URL in the browser's history
 - Commands: `go()`
+```js
+describe('Navigation Suite', () => {
+    it("Navigation Tests", () => {
+        cy.visit('https://demo.nopcommerce.com/')
+        // verify title
+        cy.title().should('eq', 'nopCommerce demo store')
+        // find and verigy the Register button and click
+        cy.get('.ico-register').contains('Reg').click()
+        // verify title of new page after clicked
+        cy.title().should('eq', 'nopCommerce demo store. Register')
+
+        // go back to home page with back button
+        cy.go('back') // also works with cy.go(-1)
+        // verify title of prev page again
+        cy.title().should('eq', 'nopCommerce demo store')
+        // go forward to page
+        cy.go('forward') // also works with cy.go(1)
+        cy.title().should('eq', 'nopCommerce demo store. Register')
+
+        // reload page
+        cy.reload();
+        cy.title().should('eq', 'nopCommerce demo store. Register');
+
+    })
+})
+```
 
 # Handling Web Table
 - Check value presence anywhere in the table
@@ -294,3 +320,65 @@ describe('Hooks', () => {
 # Cypress Fixture
 - Load a fixed set of data in a file
 - Inside the directory, `fixtures` provided by cypress, we can create and provide multiple files
+```js
+describe('Fixture Demo Suite', function(){
+    // load the fixture data befor running the test
+    before(() => {
+        // load fixture file
+        cy.fixture('example').then((data) => {
+            // data is from the fixture itself
+            // attach the data to the object to be accessible in other code block
+            this.data = data
+        })
+    })
+
+    it('Fixture Test', () => {
+        cy.visit('https://demo.nopcommerce.com/login')
+
+        cy.get('#Email').type(this.data.email)
+
+        cy.get('#Password').type(this.data.password)
+
+        cy.get('.login-button').click()
+    })
+})
+```
+
+# Custom Commands
+- How to create custom commands in cypress
+- By default, cypress provides a certain number of commands, which we can automate our web applications but along with them, we can also create our own commands.
+- Cypress provides a flder, `support`. Inside `commands.js`, we can write our own commands.
+```js
+describe('Custom Suite', () => {
+    it('LoginTest', () => {
+        cy.login('admin@yourstore.com', 'admin')
+        cy.title().should('be.equal', 'Dashboard / nopCommerce administration')
+
+        cy.login('admin@yourstore.com', 'admin12')
+        cy.title().should('be.equal', 'Your store. Login')
+
+        cy.login('admin@yourstore.comds', 'admin')
+        cy.title().should('be.equal', 'Your store. Login')
+    })
+
+    it('Add Customer', () => {
+        //login script
+        cy.login('admin@yourstore.com', 'admin')
+    
+        //adding customer script
+        cy.log('Adding customer.....')
+    })
+
+    it('Edit Customer', () => {
+
+        cy.login('admin@yourstore.com', 'admin')
+        // cy.title().should('be.equal', 'Dashboard / nopCommerce administration')
+        cy.log('editing customer.....')
+        //editing for customer script
+    })
+})
+```
+
+# Page Object Model Pattern
+- Page Object Moel is a design pattern where page objets are separated from Automatino test scripts.
+- Advantage: reusability and maintainability
