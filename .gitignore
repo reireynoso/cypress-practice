@@ -1,2 +1,4 @@
 node_modules
 package-lock.json
+cypress/screenshots/examples
+cypress/videos/examples

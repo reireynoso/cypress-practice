@@ -429,3 +429,13 @@ describe('Page Object Suite', () => {
     })
 })
 ```
+
+# Cypress Command Line & Dashboard Services
+- How to run Cypress from the command line. 
+    - To run all the tests in the terminal => `npx cypress run`.
+- How to specify which spec files to run
+    - To run a specific spec file => `npx cypress --spec "location_of_spec_file"`
+- Working with dashboard features
+    - Capture screenshots
+    - Recording
+    - To run in test runner => `npx cypress open`. All of the screenshots and videos will be saved in the cypress cloud. In the test runner, navigate ro the `runs` tab, connect/login. Follow instructions in the prompt
