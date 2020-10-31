@@ -439,3 +439,10 @@ describe('Page Object Suite', () => {
     - Capture screenshots
     - Recording
     - To run in test runner => `npx cypress open`. All of the screenshots and videos will be saved in the cypress cloud. In the test runner, navigate ro the `runs` tab, connect/login. Follow instructions in the prompt
+
+# Continuous Integration (CI) 
+- Cypress Integration with Jenkins.
+- Jenkins is CI tool where we can configure our cypress project and run our cypress project scripts.
+- Configure `package.json` to run tests. The same command will be used in Jenkins
+- Install Jenkins with `brew install jenkins-lts` on your machine. Run it with `brew services start jenkins-lts` and visit `localhost:8080`
+- To add project in Jenkins, get the project path with `pwd` and on the Jenkins dashboard, click on New Item, Freestyle Project. Under the General Tab, normally, provide the Github link but can also run with Custom Workspace. Add Build Step with the script command. Back to the dashboard, click on `Build Now`
