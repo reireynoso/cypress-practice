@@ -470,6 +470,44 @@ context('Window', () => {
 - Install Cypress Upload dev dependency, `npm install cypress-file-upload --save-dev`
 - load the file using `fixture`
 - upload and verify the upload file
+```js
+import 'cypress-file-upload'
+
+describe('Upload the file', () => {
+    it('Upload file and assert the nae of the file upload', () => {
+        const fixturePath = '1k.jpg' //checks for the image name in the fixxture folder
+        cy.visit('https://the-internet.herokuapp.com/upload')
+        cy.get("#file-upload").attachFile(fixturePath)
+        cy.get('#file-submit').click()
+        cy.wait(1000)
+        cy.get("#uploaded-files").contains("1k.jpg")
+    })
+})
+```
+
+# Download File
+- Install `npm install cypress-downloadfile --save-dev`
+- Then require it with `require('cypress-downloadfile/lib/addPlugin')` in the `cypress/plugins/index.js`
+```js
+const {downloadFile} = require('cypress-downloadfile/lib/addPlugin')
+module.exports = (on,config) => {
+  on('task', {downloadFile})
+}
+```
+
+```js
+require('cypress-downloadfile/lib/downloadFileCommand');
+
+describe('Download Demo', () => {
+    it('Download', () => {
+        // first param => url of the image
+        // second param any string 
+        // third param name of file
+        cy.downloadFile('http://www.africau.edu/images/default/sample.pdf', 'Download', 'demo.pdf')
+    })
+})
+```
+- Upon downloading, a `Download` folder is ccreated in the root
 
 # Cypress Command Line & Dashboard Services
 - How to run Cypress from the command line. 
