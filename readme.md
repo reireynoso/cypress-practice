@@ -430,6 +430,47 @@ describe('Page Object Suite', () => {
 })
 ```
 
+# Checking for Window Script
+- Commands: `viewport`, `screenshot`
+- Open tests in certain viewports specified
+- Issues facing Uncaught Exceptions: `https://stackoverflow.com/questions/58372833/cypress-test-failing-due-to-error-in-application-code`
+```js
+context('Window', () => {
+    beforeEach(() => {
+        cy.visit('https://scrolltest.com')
+    })
+
+    it('open in mac 15', () => {
+        cy.viewport('macbook-15')
+        cy.screenshot()
+        cy.wait(200)
+    })
+
+    it('open in mac 13', () => {
+        cy.viewport('macbook-13')
+        cy.screenshot()
+        cy.wait(200)
+    })
+
+    it('open in ipad 2', () => {
+        cy.viewport('ipad-2')
+        cy.screenshot()
+        cy.wait(200)
+    })
+
+    it('open in iphone 6', () => {
+        cy.viewport('iphone-6')
+        cy.screenshot()
+        cy.wait(200)
+    })
+}) 
+```
+
+# Cypress File Upload
+- Install Cypress Upload dev dependency, `npm install cypress-file-upload --save-dev`
+- load the file using `fixture`
+- upload and verify the upload file
+
 # Cypress Command Line & Dashboard Services
 - How to run Cypress from the command line. 
     - To run all the tests in the terminal => `npx cypress run`.
@@ -446,3 +487,4 @@ describe('Page Object Suite', () => {
 - Configure `package.json` to run tests. The same command will be used in Jenkins
 - Install Jenkins with `brew install jenkins-lts` on your machine. Run it with `brew services start jenkins-lts` and visit `localhost:8080`
 - To add project in Jenkins, get the project path with `pwd` and on the Jenkins dashboard, click on New Item, Freestyle Project. Under the General Tab, normally, provide the Github link but can also run with Custom Workspace. Add Build Step with the script command. Back to the dashboard, click on `Build Now`
+- Optional: Add NODE JS plugin globally on Jenkins. Add it as a tool. The include on builds
