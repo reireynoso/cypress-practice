@@ -554,6 +554,22 @@ describe("HTTP Examples", () => {
 })
 ```
 
+# Add HTML Report in Cypress
+- Generate a report with Mocha Awesome
+- Adjust the `cypress.json` file with the following properties:
+```js
+"reporter": "mochawesome",
+  "reporterOptions": {
+      "reportDir": "cypress/report/mochawesome-report", // where to save in directory
+      "overwrite": false,
+      "html": true,
+      "json": false,
+      "timestamp": "mmddyyyy_HHMMss"
+  }
+```
+- Add the dev dependency, `npm install mocha mochawesome mochawesome-merge  --save-dev`
+- Generate the report by running cypress, `npx cypress run`
+
 # Cypress Command Line & Dashboard Services
 - How to run Cypress from the command line. 
     - To run all the tests in the terminal => `npx cypress run`.
