@@ -6,3 +6,6 @@ cypress/videos/examples
 cypress/videos/code
 Download/
 cypress/report
+cypress/videos/PageObjects
+cypress/videos/REST
+cypress/videos/the-internet

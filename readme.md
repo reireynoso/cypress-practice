@@ -570,6 +570,16 @@ describe("HTTP Examples", () => {
 - Add the dev dependency, `npm install mocha mochawesome mochawesome-merge  --save-dev`
 - Generate the report by running cypress, `npx cypress run`
 
+# Run Cypress Test-Cases in Docker and Record Video
+- Docker Commands: `docker run -it -v $PWD:/e2e -w /e2e --entrypoint=cypress cypress/included:3.2.0 run` (refer to cypress docker images for versions)
+- Basically mapping the whole directory of PWD. The current directory we are in.
+- -w setting working directory with `e2e`
+- entrypoint is the `cypress` directory
+- `-it` means iteratively
+- Executes test cases in a headless mode on a docker container, not on the local machine
+- Alternative appraoch is to create a `docker-compose.yml` file. Code for file can be found in `https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/`
+- And can run with `docker-compose up --exit-code-from cypress`
+
 # Cypress Command Line & Dashboard Services
 - How to run Cypress from the command line. 
     - To run all the tests in the terminal => `npx cypress run`.
