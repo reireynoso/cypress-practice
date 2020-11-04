@@ -597,3 +597,6 @@ describe("HTTP Examples", () => {
 - Install Jenkins with `brew install jenkins-lts` on your machine. Run it with `brew services start jenkins-lts` and visit `localhost:8080`
 - To add project in Jenkins, get the project path with `pwd` and on the Jenkins dashboard, click on New Item, Freestyle Project. Under the General Tab, normally, provide the Github link but can also run with Custom Workspace. Add Build Step with the script command. Back to the dashboard, click on `Build Now`
 - Optional: Add NODE JS plugin globally on Jenkins. Add it as a tool. The include on builds
+
+# Advanced Cypress Commands
+- Commands: `visit`, `get`, `should`, `find`, `filter`, `parent`, `each`, `and`, `clearCookie`, `click`, `fixture`, `getCookie`, `its`, `log`, `exec`, `wrap`, `window`, `url`, `eq`
